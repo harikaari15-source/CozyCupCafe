@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOID STUDIO - Premium Streetwear</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --accent: #ff3366;
+            --accent-glow: rgba(255, 51, 102, 0.3);
+            --border: #222222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Syne', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1.5rem 3rem;
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            color: var(--accent);
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .cart-badge {
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 100px;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        /* Home Page */
+        .hero {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 51, 102, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(102, 51, 255, 0.1) 0%, transparent 50%);
+            animation: pulseGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 8rem;
+            letter-spacing: 8px;
+            margin-bottom: 1rem;
+            line-height: 0.9;
+            background: linear-gradient(135deg, #ffffff 0%, #888888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            letter-spacing: 2px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-size: 1rem;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            box-shadow: 0 0 30px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Shop Page */
+        .page-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            letter-spacing: 4px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--accent-glow) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .product-name {
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .product-price {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .add-to-cart:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* About Page */
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 0;
+        }
+
+        .about-content h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+
+        /* Contact/Checkout Page */
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 3rem 0;
+        }
+
+        .form-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-section h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.5rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .submit-button:hover {
+            box-shadow: 0 0 30px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .order-summary {
+            background: var(--bg-dark);
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.5rem 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 3rem;
+            text-align: center;
+            margin-top: 5rem;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">VOID STUDIO</div>
+            <ul>
+                <li><a href="#" onclick="showPage('home')">HOME</a></li>
+                <li><a href="#" onclick="showPage('shop')">SHOP</a></li>
+                <li><a href="#" onclick="showPage('about')">ABOUT</a></li>
+                <li><a href="#" onclick="showPage('contact')">CONTACT</a></li>
+                <li><a href="#" onclick="showPage('checkout')">CART <span class="cart-badge" id="cartCount">0</span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>REDEFINE<br>YOUR STYLE</h1>
+                <p>PREMIUM STREETWEAR FOR THE BOLD</p>
+                <a href="#" class="cta-button" onclick="showPage('shop')">EXPLORE COLLECTION</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shop Page -->
+    <div id="shop" class="page">
+        <div class="container">
+            <h2 class="page-title">COLLECTION</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">HOODIE</div>
+                    <div class="product-info">
+                        <div class="product-name">VOID Oversized Hoodie</div>
+                        <div class="product-price">$89.99</div>
+                        <button class="add-to-cart" onclick="addToCart('VOID Oversized Hoodie', 89.99)">ADD TO CART</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">JACKET</div>
+                    <div class="product-info">
+                        <div class="product-name">Neon Tech Jacket</div>
+                        <div class="product-price">$149.99</div>
+                        <button class="add-to-cart" onclick="addToCart('Neon Tech Jacket', 149.99)">ADD TO CART</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">PANTS</div>
+                    <div class="product-info">
+                        <div class="product-name">Cargo Utility Pants</div>
+                        <div class="product-price">$79.99</div>
+                        <button class="add-to-cart" onclick="addToCart('Cargo Utility Pants', 79.99)">ADD TO CART</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">TEE</div>
+                    <div class="product-info">
+                        <div class="product-name">Graphic Statement Tee</div>
+                        <div class="product-price">$44.99</div>
+                        <button class="add-to-cart" onclick="addToCart('Graphic Statement Tee', 44.99)">ADD TO CART</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">SNEAKERS</div>
+                    <div class="product-info">
+                        <div class="product-name">Future Runners</div>
+                        <div class="product-price">$129.99</div>
+                        <button class="add-to-cart" onclick="addToCart('Future Runners', 129.99)">ADD TO CART</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">CAP</div>
+                    <div class="product-info">
+                        <div class="product-name">Minimal Logo Cap</div>
+                        <div class="product-price">$34.99</div>
+                        <button class="add-to-cart" onclick="addToCart('Minimal Logo Cap', 34.99)">ADD TO CART</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <div class="container">
+            <h2 class="page-title">ABOUT US</h2>
+            <div class="about-content">
+                <h2>OUR STORY</h2>
+                <p>VOID STUDIO was born from the streets, crafted for those who dare to stand out. We believe fashion is more than fabric—it's a statement, a movement, a way of life.</p>
+                <p>Founded in 2020, we've been pushing boundaries and redefining what streetwear means. Every piece is designed with meticulous attention to detail, blending cutting-edge aesthetics with uncompromising quality.</p>
+                
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">HAPPY CUSTOMERS</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">UNIQUE DESIGNS</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">SATISFACTION</div>
+                    </div>
+                </div>
+
+                <h2>OUR MISSION</h2>
+                <p>To empower individuals through bold, innovative streetwear that breaks conventions and celebrates authenticity. We're not just selling clothes—we're building a community of trendsetters and visionaries.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <div class="container">
+            <h2 class="page-title">CONTACT US</h2>
+            <div class="form-container">
+                <div class="form-section">
+                    <h3>GET IN TOUCH</h3>
+                    <div class="form-group">
+                        <label for="name">FULL NAME *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">EMAIL *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">PHONE</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">SUBJECT *</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="order">Order Support</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="feedback">Feedback</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">MESSAGE *</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <label for="newsletter" style="margin: 0;">Subscribe to newsletter for exclusive drops</label>
+                    </div>
+                    <button type="submit" class="submit-button" onclick="submitContactForm()">SEND MESSAGE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Page -->
+    <div id="checkout" class="page">
+        <div class="container">
+            <h2 class="page-title">CHECKOUT</h2>
+            <div class="form-container">
+                <div class="form-section">
+                    <h3>SHIPPING INFORMATION</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">FIRST NAME *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">LAST NAME *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">STREET ADDRESS *</label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">CITY *</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">STATE / PROVINCE *</label>
+                            <input type="text" id="state" name="state" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="zip">ZIP / POSTAL CODE *</label>
+                            <input type="text" id="zip" name="zip" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">COUNTRY *</label>
+                            <select id="country" name="country" required>
+                                <option value="">Select country</option>
+                                <option value="us">United States</option>
+                                <option value="ca">Canada</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="au">Australia</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>PAYMENT DETAILS</h3>
+                    <div class="form-group">
+                        <label for="cardName">CARDHOLDER NAME *</label>
+                        <input type="text" id="cardName" name="cardName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardNumber">CARD NUMBER *</label>
+                        <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiry">EXPIRY DATE *</label>
+                            <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV *</label>
+                            <input type="text" id="cvv" name="cvv" placeholder="123" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>ORDER SUMMARY</h3>
+                    <div class="order-summary">
+                        <div id="cartItems"></div>
+                        <div class="summary-item">
+                            <span>Subtotal</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Shipping</span>
+                            <span>$9.99</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>TOTAL</span>
+                            <span id="total">$9.99</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-button" onclick="submitOrder()">COMPLETE ORDER</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 VOID STUDIO. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script>
+        // Cart management
+        let cart = [];
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update cart display if on checkout page
+            if (pageId === 'checkout') {
+                updateCheckout();
+            }
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function addToCart(productName, price) {
+            cart.push({ name: productName, price: price });
+            updateCartCount();
+            
+            // Show feedback
+            alert(`${productName} added to cart!`);
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        function updateCheckout() {
+            const cartItemsDiv = document.getElementById('cartItems');
+            let subtotal = 0;
+
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = '<div class="summary-item"><span>Your cart is empty</span></div>';
+            } else {
+                cartItemsDiv.innerHTML = '';
+                cart.forEach(item => {
+                    subtotal += item.price;
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'summary-item';
+                    itemDiv.innerHTML = `<span>${item.name}</span><span>$${item.price.toFixed(2)}</span>`;
+                    cartItemsDiv.appendChild(itemDiv);
+                });
+            }
+
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            const total = subtotal + 9.99;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+        }
+
+        function submitContactForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            if (name && email && subject && message) {
+                alert(`Thank you for your message, ${name}! We'll get back to you soon.`);
+                // Reset form
+                document.getElementById('name').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('subject').value = '';
+                document.getElementById('message').value = '';
+                document.getElementById('newsletter').checked = false;
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        }
+
+        function submitOrder() {
+            const firstName = document.getElementById('firstName').value;
+            const cardNumber = document.getElementById('cardNumber').value;
+
+            if (cart.length === 0) {
+                alert('Your cart is empty! Add some items before checking out.');
+                return;
+            }
+
+            if (firstName && cardNumber) {
+                alert(`Order confirmed! Thank you for your purchase, ${firstName}. Your order will be shipped soon.`);
+                // Clear cart
+                cart = [];
+                updateCartCount();
+                showPage('home');
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        }
+    </script>
+</body>
+</html>
