@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozy Cup Cafe - Your Neighborhood Coffee Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #3e2723;
+            background: linear-gradient(to bottom, #fff8e1, #ffecb3);
+        }
+
+        header {
+            background: linear-gradient(135deg, #6d4c41 0%, #4e342e 100%);
+            color: #fff8e1;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #ffecb3;
+        }
+
+        nav {
+            background: #5d4037;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav a {
+            color: #ffecb3;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            background: #ffecb3;
+            color: #5d4037;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            color: #6d4c41;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #5d4037;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin: 3rem 0;
+        }
+
+        .section h2 {
+            font-size: 2.2rem;
+            color: #6d4c41;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 3px solid #ffb74d;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .menu-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .menu-card h3 {
+            color: #6d4c41;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #ffb74d;
+            padding-bottom: 0.5rem;
+        }
+
+        .menu-item {
+            margin: 1rem 0;
+            padding: 0.5rem 0;
+        }
+
+        .menu-item .name {
+            font-weight: bold;
+            color: #5d4037;
+            font-size: 1.1rem;
+        }
+
+        .menu-item .price {
+            float: right;
+            color: #ff6f00;
+            font-weight: bold;
+        }
+
+        .menu-item .description {
+            font-size: 0.9rem;
+            color: #6d6d6d;
+            font-style: italic;
+        }
+
+        .about {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .hours {
+            background: linear-gradient(135deg, #ffb74d 0%, #ffa726 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .hours h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .hours p {
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+        }
+
+        footer {
+            background: #4e342e;
+            color: #ffecb3;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        .coffee-icon {
+            font-size: 3rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            nav a {
+                display: block;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="coffee-icon">☕</div>
+        <h1>Cozy Cup Cafe</h1>
+        <p>Where every cup tells a story</p>
+    </header>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="container">
+        <div class="hero" id="home">
+            <h2>Welcome to Your Happy Place</h2>
+            <p>Step into warmth, comfort, and the rich aroma of freshly brewed coffee. We're more than just a cafe – we're your neighborhood gathering spot where friends become family.</p>
+        </div>
+
+        <section class="section" id="menu">
+            <h2>Our Menu</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <h3>☕ Hot Beverages</h3>
+                    <div class="menu-item">
+                        <span class="name">Espresso</span>
+                        <span class="price">$3.00</span>
+                        <div class="description">Rich, bold, and smooth</div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="name">Cappuccino</span>
+                        <span class="price">$4.50</span>
+                        <div class="description">Perfect balance of espresso and foam</div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="name">Latte</span>
+                        <span class="price">$4.75</span>
+                        <div class="description">Creamy and comforting</div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="name">Mocha</span>
+                        <span class="price">$5.25</span>
+                        <div class="description">Coffee meets chocolate bliss</div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="name">Hot Chocolate</span>
+                        <span class="price">$4.00</span>
+                        <div class="description">Topped with whipped cream</div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <h3>🧊 Cold Beverages</h3>
+                    <div class="menu-item">
+                        <span class="name">Iced Coffee</span>
+                        <span class="price">$4.00</span>
+                        <div class="description">Smooth and refreshing</div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="name">Cold Brew</span>
+                        <span class="price">$4.50</span>
+                        <div class="description">Slow-steeped perfection</div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="name">Iced Latte</span>
+                        <span class="price">$5.00</span>
+                        <div class="description">Cool and creamy</div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="name">Frappe</span>
+                        <span class="price">$5.50</span>
+                        <div class="description">Blended frozen delight</div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="name">Fruit Smoothie</span>
+                        <span class="price">$5.75</span>
+                        <div class="description">Fresh and fruity</div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <h3>🥐 Pastries & Treats</h3>
+                    <div class="menu-item">
+                        <span class="name">Croissant</span>
+                        <span class="price">$3.50</span>
+                        <div class="description">Buttery and flaky</div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="name">Blueberry Muffin</span>
+                        <span class="price">$3.75</span>
+                        <div class="description">Bursting with berries</div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="name">Chocolate Chip Cookie</span>
+                        <span class="price">$2.50</span>
+                        <div class="description">Warm and gooey</div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="name">Cinnamon Roll</span>
+                        <span class="price">$4.50</span>
+                        <div class="description">Sweet and sticky</div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="name">Banana Bread</span>
+                        <span class="price">$3.25</span>
+                        <div class="description">Moist and delicious</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <h2>About Us</h2>
+            <div class="about">
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+                    Founded in 2018, Cozy Cup Cafe was born from a simple dream: to create a warm, welcoming space where people could escape the hustle and bustle of everyday life. Our founder, Sarah Mitchell, wanted to bring the charm of European coffee houses to our neighborhood.
+                </p>
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+                    We source our beans from sustainable, fair-trade farms around the world and roast them locally to ensure the freshest, most flavorful cup every time. Our pastries are baked fresh daily by our talented team of bakers who pour love into every creation.
+                </p>
+                <p style="font-size: 1.1rem;">
+                    Whether you're here to work, catch up with friends, or simply enjoy a quiet moment with a good book, we're here to make your day a little brighter, one cup at a time.
+                </p>
+            </div>
+
+            <div class="hours">
+                <h3>Opening Hours</h3>
+                <p><strong>Monday - Friday:</strong> 6:30 AM - 8:00 PM</p>
+                <p><strong>Saturday:</strong> 7:00 AM - 9:00 PM</p>
+                <p><strong>Sunday:</strong> 7:30 AM - 7:00 PM</p>
+            </div>
+        </section>
+
+        <section class="section" id="contact">
+            <h2>Find Us</h2>
+            <div class="about">
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+                    <strong>📍 Address:</strong><br>
+                    123 Main Street, Downtown<br>
+                    Anytown, ST 12345
+                </p>
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+                    <strong>📞 Phone:</strong><br>
+                    (555) 123-4567
+                </p>
+                <p style="font-size: 1.1rem;">
+                    <strong>📧 Email:</strong><br>
+                    hello@cozycupcafe.com
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Cozy Cup Cafe. All rights reserved.</p>
+        <p>Made with ❤️ and lots of coffee</p>
+    </footer>
+</body>
+</html>
